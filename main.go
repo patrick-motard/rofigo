@@ -13,18 +13,23 @@ func Hello() string {
 }
 
 type Page struct {
+	Prompt    string
 	Options   []string
 	Selection string
 }
 
-func New(options ...string) *Page {
+func New(prompt string, options ...string) *Page {
 	return &Page{
 		Options: options,
 	}
 }
 
 func (p *Page) Show() {
-	command := fmt.Sprintf("echo -e '%s' | rofi -dmenu", strings.Join(p.Options, "\n"))
+	if p.Prompt == "" {
+		p.Prompt = "dmenu"
+	}
+
+	command := fmt.Sprintf("echo -e '%s' | rofi -p %s -dmenu", strings.Join(p.Options, "\n"), p.Prompt)
 	cmd := exec.Command("/bin/sh", "-c", command)
 	out, err := cmd.Output()
 	if err != nil {
