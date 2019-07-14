@@ -30,8 +30,8 @@ func (p *Page) Show() {
 	if err != nil {
 		log.Fatalf("cmd.Run() failed with %s\n", err)
 	}
-	p.Selection = string(out)
-	fmt.Println(p.Selection)
+	p.Selection = strings.TrimSuffix(string(out), "\n")
+	// fmt.Println(p.Selection)
 }
 
 // func main() {
