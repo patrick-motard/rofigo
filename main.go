@@ -21,6 +21,7 @@ type Page struct {
 func New(prompt string, options ...string) *Page {
 	return &Page{
 		Options: options,
+		Prompt:  prompt,
 	}
 }
 
@@ -29,7 +30,7 @@ func (p *Page) Show() {
 		p.Prompt = "dmenu"
 	}
 
-	command := fmt.Sprintf("echo -e '%s' | rofi -p %s -dmenu", strings.Join(p.Options, "\n"), p.Prompt)
+	command := fmt.Sprintf("echo -e '%s' | rofi -dmenu -p %s", strings.Join(p.Options, "\n"), p.Prompt)
 	cmd := exec.Command("/bin/sh", "-c", command)
 	out, err := cmd.Output()
 	if err != nil {
