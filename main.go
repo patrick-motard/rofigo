@@ -30,7 +30,7 @@ func (p *Page) Show() {
 		p.Prompt = "dmenu"
 	}
 
-	command := fmt.Sprintf("echo -e '%s' | rofi -dmenu -p %s", strings.Join(p.Options, "\n"), p.Prompt)
+	command := fmt.Sprintf("echo -e '%s' | rofi -dmenu -p \"%s\"", strings.Join(p.Options, "\n"), p.Prompt)
 	cmd := exec.Command("/bin/sh", "-c", command)
 	out, err := cmd.Output()
 	if err != nil {
@@ -41,10 +41,11 @@ func (p *Page) Show() {
 }
 
 // func main() {
-// 	page1 := New("option1", "option2", "option2")
+// 	page1 := New("test", "option1", "option2", "option2")
 // 	page1.Show()
 // 	log.Println(page1.Selection)
 // 	// var options = "1\n2\n3\n"
+// }
 
 // 	// options := []string{"one", "two", "three", "four"}
 // 	// command := fmt.Sprintf("echo -e '%s' | rofi -dmenu", strings.Join(options, "\n"))
